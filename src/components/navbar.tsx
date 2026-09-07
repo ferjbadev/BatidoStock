@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// Tipado de las opciones de menú
 interface MenuItem {
   id: string;
   label: string;
@@ -10,7 +9,7 @@ interface MenuItem {
 
 export const SidebarMobile = () => {
   const [activeTab, setActiveTab] = useState<string>('resumen');
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false); // Inicia cerrado para ver la barra superior
 
   const menuItems: MenuItem[] = [
     {
@@ -52,120 +51,151 @@ export const SidebarMobile = () => {
     },
   ];
 
-  if (!isOpen) {
-    return (
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed top-4 left-4 p-3 bg-[#1e6044] text-white rounded-xl shadow-lg z-50"
-      >
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    );
-  }
-
   return (
-    <aside className="fixed inset-y-0 left-0 z-50 w-full max-w-[320px] bg-[#fbf9f5] flex flex-col justify-between p-5 border-r border-stone-200/60 font-sans text-stone-800 shadow-xl">
-      {/* Header / Brand */}
-      <div>
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-[#1e6044] flex items-center justify-center text-white shadow-sm">
-              {/* Icono de gota/hoja */}
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+    <>
+      {/* 1. BARRA SUPERIOR FIJA (HEADER) */}
+      <header className="sticky top-0 z-30 w-full bg-[#1e6044] text-white px-4 py-3 flex items-center justify-between shadow-md">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="p-2 text-white hover:bg-white/10 rounded-xl transition-colors active:scale-95"
+            aria-label="Abrir menú"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0zM12 18a4 4 0 004-4c0-2-2-4-4-6-2 2-4 4-4 6a4 4 0 004 4z" />
               </svg>
             </div>
-            <div>
-              <h2 className="font-bold text-lg leading-tight text-stone-900">Fruta & Pulpa</h2>
-              <p className="text-xs text-stone-500 font-medium">Panel de control</p>
-            </div>
+            <span className="font-bold text-base tracking-wide">Fruta & Pulpa</span>
           </div>
-          
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-stone-200/50 rounded-lg transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
         </div>
 
-        {/* Links de Navegación */}
-        <nav className="space-y-1.5">
-          {menuItems.map((item) => {
-            const isActive = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 font-medium text-base ${
-                  isActive
-                    ? 'bg-[#1e6044] text-white shadow-sm'
-                    : 'text-stone-600 hover:bg-stone-200/40 hover:text-stone-900'
-                }`}
-              >
-                <div className="flex items-center gap-3.5">
-                  <span className={isActive ? 'text-white' : 'text-stone-500'}>
-                    {item.icon}
-                  </span>
-                  <span>{item.label}</span>
-                </div>
+        {/* Indicador/Avatar rápido en el header */}
+        <div className="w-8 h-8 rounded-full bg-white/20 text-white font-semibold text-xs flex items-center justify-center border border-white/30">
+          MR
+        </div>
+      </header>
 
-                {item.badge && (
-                  <span
-                    className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${
-                      isActive
-                        ? 'bg-white/20 text-white'
-                        : 'bg-rose-100 text-rose-600'
-                    }`}
-                  >
-                    {item.badge}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </nav>
-      </div>
+      {/* 2. OVERLAY / FONDO OSCURO (Se activa cuando isOpen es true) */}
+      {isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs transition-opacity duration-300"
+        />
+      )}
 
-      {/* Footer / Banner + Perfil */}
-      <div className="space-y-4">
-        {/* Banner Informativo */}
-        <div className="bg-[#eaf3de] p-4 rounded-2xl space-y-1.5 border border-[#d8e8c5]">
-          <div className="text-[#2d6a4f]">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-            </svg>
+      {/* 3. SIDEBAR DESLIZABLE */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-full max-w-[300px] bg-[#fbf9f5] flex flex-col justify-between p-5 border-r border-stone-200/60 font-sans text-stone-800 shadow-2xl transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {/* Header dentro del menú */}
+        <div>
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-[#1e6044] flex items-center justify-center text-white shadow-sm">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0zM12 18a4 4 0 004-4c0-2-2-4-4-6-2 2-4 4-4 6a4 4 0 004 4z" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="font-bold text-base leading-tight text-stone-900">Fruta & Pulpa</h2>
+                <p className="text-xs text-stone-500 font-medium">Panel de control</p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-stone-200/50 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
-          <h3 className="font-bold text-stone-900 text-sm">Tu operación, más fresca</h3>
-          <p className="text-xs text-stone-600 leading-relaxed">
-            Revisa los ingredientes antes del próximo turno.
-          </p>
+
+          {/* Opciones del menú */}
+          <nav className="space-y-1.5">
+            {menuItems.map((item) => {
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setIsOpen(false); // Cierra el menú al hacer click en una opción
+                  }}
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 font-medium text-sm ${
+                    isActive
+                      ? 'bg-[#1e6044] text-white shadow-sm'
+                      : 'text-stone-600 hover:bg-stone-200/40 hover:text-stone-900'
+                  }`}
+                >
+                  <div className="flex items-center gap-3.5">
+                    <span className={isActive ? 'text-white' : 'text-stone-500'}>
+                      {item.icon}
+                    </span>
+                    <span>{item.label}</span>
+                  </div>
+
+                  {item.badge && (
+                    <span
+                      className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                        isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-rose-100 text-rose-600'
+                      }`}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </nav>
         </div>
 
-        <hr className="border-stone-200/80" />
-
-        {/* Perfil de Usuario */}
-        <div className="flex items-center justify-between pt-1">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-stone-200/80 text-stone-700 font-semibold text-sm flex items-center justify-center">
-              MR
+        {/* Banner Inferior y Usuario */}
+        <div className="space-y-4">
+          <div className="bg-[#eaf3de] p-3.5 rounded-2xl space-y-1 border border-[#d8e8c5]">
+            <div className="text-[#2d6a4f]">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
             </div>
-            <div>
-              <p className="font-bold text-stone-900 text-sm leading-tight">María Rodríguez</p>
-              <p className="text-xs text-stone-500 font-medium">Administradora</p>
-            </div>
+            <h3 className="font-bold text-stone-900 text-xs">Tu operación, más fresca</h3>
+            <p className="text-[11px] text-stone-600 leading-tight">
+              Revisa los ingredientes antes del próximo turno.
+            </p>
           </div>
-          <button className="text-stone-400 hover:text-stone-700 p-1">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+
+          <hr className="border-stone-200/80" />
+
+          <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-stone-200/80 text-stone-700 font-semibold text-xs flex items-center justify-center">
+                MR
+              </div>
+              <div>
+                <p className="font-bold text-stone-900 text-xs leading-tight">María Rodríguez</p>
+                <p className="text-[11px] text-stone-500 font-medium">Administradora</p>
+              </div>
+            </div>
+            <button className="text-stone-400 hover:text-stone-700 p-1">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };
