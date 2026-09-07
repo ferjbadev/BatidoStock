@@ -74,7 +74,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
                 <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0zM12 18a4 4 0 004-4c0-2-2-4-4-6-2 2-4 4-4 6a4 4 0 004 4z" />
               </svg>
             </div>
-            <span className="font-bold text-base tracking-wide">ssss</span>
+            <span className="font-bold text-base tracking-wide">Karito Stock</span>
           </div>
         </div>
 
@@ -107,7 +107,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
                 </svg>
               </div>
               <div>
-                <h2 className="font-bold text-base leading-tight text-stone-900">Fruta & Pulpa</h2>
+                <h2 className="font-bold text-base leading-tight text-stone-900">Karito Stock</h2>
                 <p className="text-xs text-stone-500 font-medium">Panel de control</p>
               </div>
             </div>
@@ -168,13 +168,10 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
         <div className="space-y-4">
           <div className="bg-[#eaf3de] p-3.5 rounded-2xl space-y-1 border border-[#d8e8c5]">
             <div className="text-[#2d6a4f]">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-              </svg>
             </div>
             <h3 className="font-bold text-stone-900 text-xs">Tu operación, más fresca</h3>
             <p className="text-[11px] text-stone-600 leading-tight">
-              Revisa los ingredientes antes del próximo turno.
+              Revisa los ingredientes antes del próximo pedido.
             </p>
           </div>
 
@@ -183,10 +180,10 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
           <div className="flex items-center justify-between pt-1">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-stone-200/80 text-stone-700 font-semibold text-xs flex items-center justify-center">
-                MR
+                KR
               </div>
               <div>
-                <p className="font-bold text-stone-900 text-xs leading-tight">María Rodríguez</p>
+                <p className="font-bold text-stone-900 text-xs leading-tight">Karolayn Romero</p>
                 <p className="text-[11px] text-stone-500 font-medium">Administradora</p>
               </div>
             </div>
