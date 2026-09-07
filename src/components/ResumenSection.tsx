@@ -32,11 +32,9 @@ export const ResumenSection = () => {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <p className="text-xs text-stone-500 font-medium">Buenos días, María</p>
                     <h1 className="text-2xl sm:text-3xl font-bold text-stone-900">
                         Todo listo para un día <span className="text-[#1e6044]">refrescante.</span>
                     </h1>
-                    <p className="text-xs text-stone-500 mt-1">Aquí tienes el pulso de Fruta & Pulpa.</p>
                 </div>
                 <button className="bg-[#1e6044] hover:bg-[#164833] text-white px-5 py-2.5 rounded-2xl font-medium text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95 self-start sm:self-auto">
                     <span>+</span> Nueva venta
