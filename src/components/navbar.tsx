@@ -101,10 +101,13 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
         <div>
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-[#1e6044] flex items-center justify-center text-white shadow-sm">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0zM12 18a4 4 0 004-4c0-2-2-4-4-6-2 2-4 4-4 6a4 4 0 004 4z" />
-                </svg>
+              {/* Línea 104: Reemplazado por la imagen2 desde public */}
+              <div className="w-11 h-11 rounded-2xl overflow-hidden shadow-sm shrink-0">
+                <img
+                  src="/imagen2.png"
+                  alt="Logo Karito Stock"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h2 className="font-bold text-base leading-tight text-stone-900">Karito Stock</h2>
@@ -187,7 +190,6 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
               </div>
             </div>
 
-            {/* Línea 192: Botón para abrir el modal */}
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
@@ -244,7 +246,6 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
                 </p>
               </div>
 
-              {/* Botón adaptado al texto */}
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
