@@ -70,10 +70,12 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
           </button>
 
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0zM12 18a4 4 0 004-4c0-2-2-4-4-6-2 2-4 4-4 6a4 4 0 004 4z" />
-              </svg>
+            <div className="w-8 h-8 rounded-lg overflow-hidden bg-white/10 flex items-center justify-center shrink-0">
+              <img
+                src="/imagen3.png"
+                alt="Karito Stock Icono"
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="font-bold text-base tracking-wide">Karito Stock</span>
           </div>
@@ -95,16 +97,16 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
 
       {/* Sidebar Deslizable */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-full max-w-[300px] bg-[#fbf9f5] flex flex-col justify-between p-5 border-r border-stone-200/60 font-sans text-stone-800 shadow-2xl transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+        className={`fixed inset-y-0 left-0 z-50 w-full max-w-[300px] bg-[#fbf9f5] flex flex-col justify-between p-5 border-r border-stone-200/60 font-sans text-stone-800 shadow-2xl transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
       >
         <div>
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
-              {/* Línea 104: Reemplazado por la imagen2 desde public */}
               <div className="w-11 h-11 rounded-2xl overflow-hidden shadow-sm shrink-0">
                 <img
-                  src="/imagen2.jpg"
+                  src="/imagen2.png"
                   alt="Logo Karito Stock"
                   className="w-full h-full object-cover"
                 />
@@ -137,10 +139,11 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
                     setActiveTab(item.id);
                     setIsOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 font-medium text-sm ${isActive
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 font-medium text-sm ${
+                    isActive
                       ? 'bg-[#1e6044] text-white shadow-sm'
                       : 'text-stone-600 hover:bg-stone-200/40 hover:text-stone-900'
-                    }`}
+                  }`}
                 >
                   <div className="flex items-center gap-3.5">
                     <span className={isActive ? 'text-white' : 'text-stone-500'}>
@@ -151,10 +154,11 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
 
                   {item.badge && (
                     <span
-                      className={`text-xs font-semibold px-2 py-0.5 rounded-full ${isActive
+                      className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                        isActive
                           ? 'bg-white/20 text-white'
                           : 'bg-rose-100 text-rose-600'
-                        }`}
+                      }`}
                     >
                       {item.badge}
                     </span>
