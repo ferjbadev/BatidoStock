@@ -42,9 +42,9 @@ export const InventarioSection = () => {
             <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5 space-y-6">
                 {/* Header */}
                 <div className="flex items-center justify-between">
-                    <div>
-                        <h2 className="text-2xl text-center font-bold text-stone-900">Inventario de ingredientes</h2>
-                        <p className="text-lg text-center text-stone-500">
+                    <div className="w-full">
+                        <h2 className="text-2xl text-center font-bold text-stone-900">Inventario de Ingredientes</h2>
+                        <p className="text-base text-center text-stone-500">
                             Estate pendiente que no te quedes sin ingredientes por que yo se que tu eres tontita
                         </p>
                     </div>
@@ -72,11 +72,11 @@ export const InventarioSection = () => {
                     </table>
                 </div>
 
-                {/* Botón inferior para abrir el modal */}
-                <div className="pt-2 flex justify-end border-t border-stone-100">
+                {/* Botón inferior centrado */}
+                <div className="pt-2 flex justify-center border-t border-stone-100">
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="bg-[#1e6044] hover:bg-[#164833] text-white px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-all active:scale-95 cursor-pointer"
+                        className="bg-[#1e6044] hover:bg-[#164833] text-white px-5 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-all active:scale-95 cursor-pointer"
                     >
                         <span>+</span> Añadir ingrediente
                     </button>
