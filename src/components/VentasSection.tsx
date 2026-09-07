@@ -61,18 +61,18 @@ export const VentasSection = () => {
                     {sales.map((sale) => (
                         <div
                             key={sale.id}
-                            className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-stone-100 hover:bg-stone-50 transition-colors gap-2"
+                            className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-stone-100 hover:bg-stone-50 transition-colors gap-3"
                         >
                             {/* Izquierda: ID y Hora */}
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 shrink-0">
                                 <span className="font-bold text-stone-900 text-sm">{sale.id}</span>
                                 <span className="text-[11px] text-stone-400">{sale.time}</span>
                             </div>
 
-                            {/* Derecha: Nombre/Productos y Total */}
-                            <div className="flex flex-col sm:items-end justify-between sm:justify-end pt-2 sm:pt-0 border-t sm:border-0 border-stone-100">
-                                <p className="text-xs font-medium text-stone-700 sm:text-right">{sale.items}</p>
-                                <span className="font-bold text-stone-900 text-sm">{sale.total}</span>
+                            {/* Derecha / Centro: Producto a la izquierda y Precio a la derecha */}
+                            <div className="flex items-center justify-between gap-4 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-0 border-stone-100">
+                                <p className="text-xs font-medium text-stone-700 truncate">{sale.items}</p>
+                                <span className="font-bold text-stone-900 text-sm shrink-0">{sale.total}</span>
                             </div>
                         </div>
                     ))}
