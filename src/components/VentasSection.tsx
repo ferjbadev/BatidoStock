@@ -5,14 +5,13 @@ interface Sale {
     time: string;
     items: string;
     total: string;
-    status: string;
 }
 
 export const VentasSection = () => {
     const [sales, setSales] = useState<Sale[]>([
-        { id: '#1024', time: '12:45 PM', items: '2x Mango tropical, 1x Berry blast', total: '$26.50', status: 'Completado' },
-        { id: '#1023', time: '12:30 PM', items: '1x Green detox', total: '$11.00', status: 'Completado' },
-        { id: '#1022', time: '12:15 PM', items: '3x Piña colada', total: '$21.00', status: 'Completado' },
+        { id: '#1024', time: '12:45 PM', items: '2x Mango tropical, 1x Berry blast', total: '$26.50' },
+        { id: '#1023', time: '12:30 PM', items: '1x Green detox', total: '$11.00' },
+        { id: '#1022', time: '12:15 PM', items: '3x Piña colada', total: '$21.00' },
     ]);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,7 +38,6 @@ export const VentasSection = () => {
             time: currentTime,
             items: `${qtyNum}x ${productName.trim()}`,
             total: `$${totalAmount}`,
-            status: 'Completado',
         };
 
         setSales((prev) => [newSale, ...prev]);
@@ -75,15 +73,12 @@ export const VentasSection = () => {
 
                             <div className="flex items-center justify-between sm:justify-end gap-4 pt-2 sm:pt-0 border-t sm:border-0 border-stone-100">
                                 <span className="font-bold text-stone-900 text-sm">{sale.total}</span>
-                                <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-emerald-100 text-emerald-800">
-                                    {sale.status}
-                                </span>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Botón en la parte de abajo, centrado en el contenedor */}
+                {/* Botón en la parte de abajo, centrado */}
                 <div className="pt-2 flex justify-center border-t border-stone-100">
                     <button
                         onClick={() => setIsModalOpen(true)}
@@ -94,11 +89,10 @@ export const VentasSection = () => {
                 </div>
             </div>
 
-            {/* Modal solo con Nombre, Cantidad y Precio */}
+            {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
                     <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-stone-100 space-y-5 animate-in fade-in zoom-in-95 duration-200">
-                        {/* Título centrado en el contenedor */}
                         <div className="relative flex items-center justify-center">
                             <h3 className="text-lg font-bold text-stone-900 text-center">
                                 Registrar nueva venta
@@ -158,7 +152,6 @@ export const VentasSection = () => {
                                 />
                             </div>
 
-                            {/* Botones centrados: Agregar primero (verde), Cancelar después (rojo) */}
                             <div className="flex items-center justify-center gap-3 pt-3">
                                 <button
                                     type="submit"
