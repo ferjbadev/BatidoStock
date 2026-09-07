@@ -47,7 +47,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
       label: 'Historial',
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
         </svg>
       ),
     },
@@ -68,7 +68,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          
+
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -95,9 +95,8 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
 
       {/* Sidebar Deslizable */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-full max-w-[300px] bg-[#fbf9f5] flex flex-col justify-between p-5 border-r border-stone-200/60 font-sans text-stone-800 shadow-2xl transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 w-full max-w-[300px] bg-[#fbf9f5] flex flex-col justify-between p-5 border-r border-stone-200/60 font-sans text-stone-800 shadow-2xl transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
         <div>
           <div className="flex items-center justify-between mb-8">
@@ -135,11 +134,10 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
                     setActiveTab(item.id);
                     setIsOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 font-medium text-sm ${
-                    isActive
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 font-medium text-sm ${isActive
                       ? 'bg-[#1e6044] text-white shadow-sm'
                       : 'text-stone-600 hover:bg-stone-200/40 hover:text-stone-900'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3.5">
                     <span className={isActive ? 'text-white' : 'text-stone-500'}>
@@ -150,11 +148,10 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
 
                   {item.badge && (
                     <span
-                      className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                        isActive
+                      className={`text-xs font-semibold px-2 py-0.5 rounded-full ${isActive
                           ? 'bg-white/20 text-white'
                           : 'bg-rose-100 text-rose-600'
-                      }`}
+                        }`}
                     >
                       {item.badge}
                     </span>
@@ -221,11 +218,11 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              <h3 className="font-bold text-lg">Perfil de la Emprendedora</h3>
+              <h3 className="font-bold text-lg">Perfil</h3>
             </div>
 
             {/* Cuerpo del Modal */}
-            <div className="p-6 text-center space-y-4">
+            <div className="p-6 text-center space-y-4 flex flex-col items-center">
               <div className="relative w-36 h-36 mx-auto rounded-2xl overflow-hidden shadow-md border-2 border-[#1e6044]/20">
                 <img
                   src="/imagen1.jpeg"
@@ -236,19 +233,22 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
 
               <div>
                 <h4 className="text-xl font-extrabold text-stone-900">Karolayn Romero</h4>
-                <p className="text-sm font-semibold text-[#1e6044] mt-0.5">Ser Tontita</p>
+                <p className="text-sm font-semibold text-[#1e6044] mt-0.5">Profesión: Ser Tontita</p>
               </div>
 
-              <div className="bg-[#fbf9f5] p-4 rounded-2xl border border-stone-200/70 text-left">
+              <div className="bg-[#fbf9f5] p-4 rounded-2xl border border-stone-200/70 text-left w-full">
                 <p className="text-xs text-stone-600 leading-relaxed font-medium">
-                  🍓 Apasionada emprendedora dedicada a la elaboración de jugos y batidos 100% naturales. Transformo frutas frescas en combinaciones deliciosas que llenan de energía y vitalidad el día a día de Karito Stock.
+                  Apasionada emprendedora dedicada a la elaboración de jugos y batidos 100% naturales. <br />
+                  <br />
+                  Próximamente se volverá más loquita por tanto BTS.
                 </p>
               </div>
 
+              {/* Botón adaptado al texto */}
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="w-full py-2.5 bg-[#1e6044] text-white text-sm font-semibold rounded-xl hover:bg-[#184d36] transition-colors shadow-sm"
+                className="w-auto px-6 py-2.5 bg-[#1e6044] text-white text-sm font-semibold rounded-xl hover:bg-[#184d36] transition-colors shadow-sm cursor-pointer"
               >
                 Cerrar
               </button>
