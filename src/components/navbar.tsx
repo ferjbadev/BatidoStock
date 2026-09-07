@@ -84,7 +84,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
         </div>
       </header>
 
-      {/* Overlay oscuro detras del menú */}
+      {/* Overlay oscuro detrás del menú */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
@@ -167,8 +167,6 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
         {/* Banner Inferior y Usuario */}
         <div className="space-y-4">
           <div className="bg-[#eaf3de] p-3.5 rounded-2xl space-y-1 border border-[#d8e8c5]">
-            <div className="text-[#2d6a4f]">
-            </div>
             <h3 className="font-bold text-stone-900 text-xs">Tu operación, más fresca</h3>
             <p className="text-[11px] text-stone-600 leading-tight">
               Revisa los ingredientes antes del próximo pedido.
@@ -177,17 +175,20 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
 
           <hr className="border-stone-200/80" />
 
+          {/* Perfil del Usuario */}
           <div className="flex items-center justify-between pt-1">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-stone-200/80 text-stone-700 font-semibold text-xs flex items-center justify-center">
-                KR
-              </div>
-              <div>
+              <img
+                src="/imagen1.jpeg"
+                alt="Karolayn Romero"
+                className="w-10 h-10 rounded-full object-cover border border-stone-200 shrink-0 shadow-xs"
+              />
+              <div className="ml-1">
                 <p className="font-bold text-stone-900 text-xs leading-tight">Karolayn Romero</p>
                 <p className="text-[11px] text-stone-500 font-medium">Administradora</p>
               </div>
             </div>
-            <button type="button" className="text-stone-400 hover:text-stone-700 p-1">
+            <button type="button" className="text-stone-400 hover:text-stone-700 p-1 cursor-pointer">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
