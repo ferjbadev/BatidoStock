@@ -90,7 +90,7 @@ export const ResumenSection = () => {
             <div>
                 <h2 className="text-xl font-bold text-stone-900">Historial de Actividad</h2>
                 <p className="text-sm text-stone-500">
-                    Registro detallado de ventas e ingredientes agregados semana a semana.
+                    Para que no se te olvide nada mi amor
                 </p>
             </div>
 
