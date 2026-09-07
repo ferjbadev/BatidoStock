@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Ingredient {
     id: string;
@@ -39,7 +40,12 @@ export const InventarioSection = () => {
     return (
         <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans text-stone-800">
             {/* Contenedor principal */}
-            <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5 space-y-6">
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5 space-y-6"
+            >
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="w-full">
@@ -62,14 +68,24 @@ export const InventarioSection = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-stone-100 text-sm">
-                            {ingredients.map((item) => (
-                                <tr key={item.id} className="hover:bg-stone-50/60 transition-colors">
-                                    <td className="py-4 font-bold text-stone-900">{item.name}</td>
-                                    <td className="py-4 font-semibold text-stone-800 text-right">
-                                        {item.stock} {item.stock === 1 ? 'unidad' : 'unidades'}
-                                    </td>
-                                </tr>
-                            ))}
+                            <AnimatePresence initial={false}>
+                                {ingredients.map((item) => (
+                                    <motion.tr
+                                        key={item.id}
+                                        layout
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                                        className="hover:bg-stone-50/60 transition-colors"
+                                    >
+                                        <td className="py-4 font-bold text-stone-900">{item.name}</td>
+                                        <td className="py-4 font-semibold text-stone-800 text-right">
+                                            {item.stock} {item.stock === 1 ? 'unidad' : 'unidades'}
+                                        </td>
+                                    </motion.tr>
+                                ))}
+                            </AnimatePresence>
                         </tbody>
                     </table>
                 </div>
@@ -83,75 +99,95 @@ export const InventarioSection = () => {
                         <span>+</span> Añadir ingrediente
                     </button>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Modal para agregar ingrediente */}
-            {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
-                    <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-stone-100 space-y-5 animate-in fade-in zoom-in-95 duration-200">
-                        {/* Cabecera del modal con título centrado */}
-                        <div className="relative flex items-center justify-center">
-                            <h3 className="text-lg font-bold text-stone-900 text-center">
-                                Añadir nuevo ingrediente
-                            </h3>
-                            <button
-                                onClick={() => setIsModalOpen(false)}
-                                className="absolute right-0 p-1 rounded-lg text-black hover:opacity-75 transition-opacity cursor-pointer"
-                            >
-                                ✕
-                            </button>
-                        </div>
+            <AnimatePresence>
+                {isModalOpen && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        {/* Backdrop */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            onClick={() => setIsModalOpen(false)}
+                            className="absolute inset-0 bg-black/40 backdrop-blur-xs"
+                        />
 
-                        <form onSubmit={handleAddIngredient} className="space-y-4">
-                            <div>
-                                <label className="block text-xs font-medium text-stone-600 mb-1">
-                                    Nombre del ingrediente
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    placeholder="Ej. Mango, Leche, Fresa"
-                                    value={newIngredientName}
-                                    onChange={(e) => setNewIngredientName(e.target.value)}
-                                    className="w-full px-3.5 py-2 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e6044] text-stone-800 placeholder-stone-400"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-xs font-medium text-stone-600 mb-1">
-                                    Cantidad disponible
-                                </label>
-                                <input
-                                    type="number"
-                                    min="0"
-                                    required
-                                    placeholder="Ej. 10"
-                                    value={newIngredientStock}
-                                    onChange={(e) => setNewIngredientStock(e.target.value)}
-                                    className="w-full px-3.5 py-2 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e6044] text-stone-800 placeholder-stone-400"
-                                />
-                            </div>
-
-                            {/* Botones del formulario centrados */}
-                            <div className="flex items-center justify-center gap-3 pt-3">
-                                <button
-                                    type="submit"
-                                    className="bg-[#1e6044] hover:bg-[#164833] text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all active:scale-95 cursor-pointer"
-                                >
-                                    Guardar ingrediente
-                                </button>
+                        {/* Modal Content */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                            transition={{ duration: 0.2, ease: 'easeOut' }}
+                            className="relative z-10 bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-stone-100 space-y-5"
+                        >
+                            {/* Cabecera del modal con título centrado */}
+                            <div className="relative flex items-center justify-center">
+                                <h3 className="text-lg font-bold text-stone-900 text-center">
+                                    Añadir nuevo ingrediente
+                                </h3>
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="px-4 bg-[#e62107] py-2 text-xs font-semibold text-white hover:bg-[#c41a00] rounded-xl transition-colors cursor-pointer"
+                                    className="absolute right-0 p-1 rounded-lg text-black hover:opacity-75 transition-opacity cursor-pointer"
                                 >
-                                    Cancelar
+                                    ✕
                                 </button>
                             </div>
-                        </form>
+
+                            <form onSubmit={handleAddIngredient} className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-medium text-stone-600 mb-1">
+                                        Nombre del ingrediente
+                                    </label>
+                                    <input
+                                        type="text"
+                                        required
+                                        placeholder="Ej. Mango, Leche, Fresa"
+                                        value={newIngredientName}
+                                        onChange={(e) => setNewIngredientName(e.target.value)}
+                                        className="w-full px-3.5 py-2 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e6044] text-stone-800 placeholder-stone-400"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-medium text-stone-600 mb-1">
+                                        Cantidad disponible
+                                    </label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        required
+                                        placeholder="Ej. 10"
+                                        value={newIngredientStock}
+                                        onChange={(e) => setNewIngredientStock(e.target.value)}
+                                        className="w-full px-3.5 py-2 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e6044] text-stone-800 placeholder-stone-400"
+                                    />
+                                </div>
+
+                                {/* Botones del formulario centrados */}
+                                <div className="flex items-center justify-center gap-3 pt-3">
+                                    <button
+                                        type="submit"
+                                        className="bg-[#1e6044] hover:bg-[#164833] text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all active:scale-95 cursor-pointer"
+                                    >
+                                        Guardar ingrediente
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsModalOpen(false)}
+                                        className="px-4 bg-[#e62107] py-2 text-xs font-semibold text-white hover:bg-[#c41a00] rounded-xl transition-colors cursor-pointer"
+                                    >
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
                     </div>
-                </div>
-            )}
+                )}
+            </AnimatePresence>
         </div>
     );
 };
