@@ -1,11 +1,11 @@
 import './App.css'
-import { Navbar } from './components/navbar'
+import { SidebarMobile } from './components/navbar'
 
 function App() {
 
   return (
     <>
-      <Navbar />
+      <SidebarMobile />
     </>
   )
 }
