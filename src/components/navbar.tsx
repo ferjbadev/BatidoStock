@@ -104,7 +104,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
               {/* Línea 104: Reemplazado por la imagen2 desde public */}
               <div className="w-11 h-11 rounded-2xl overflow-hidden shadow-sm shrink-0">
                 <img
-                  src="/imagen2.png"
+                  src="/imagen2.jpg"
                   alt="Logo Karito Stock"
                   className="w-full h-full object-cover"
                 />
