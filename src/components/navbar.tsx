@@ -15,6 +15,12 @@ interface SidebarMobileProps {
 export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Obtener la fecha actual con formato (ej: "7 sep")
+  const currentDate = new Date().toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'short',
+  });
+
   const menuItems: MenuItem[] = [
     {
       id: 'resumen',
@@ -72,8 +78,9 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
           </div>
         </div>
 
-        <div className="w-8 h-8 rounded-full bg-white/20 text-white font-semibold text-xs flex items-center justify-center border border-white/30">
-          MR
+        {/* Línea 75: Muestra la fecha dinámica */}
+        <div className="w-auto px-2.5 h-8 rounded-full bg-white/20 text-white font-semibold text-xs flex items-center justify-center border border-white/30 capitalize">
+          {currentDate}
         </div>
       </header>
 
@@ -180,7 +187,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
               </div>
               <div>
                 <p className="font-bold text-stone-900 text-xs leading-tight">María Rodríguez</p>
-                <p className="text-[11px] text-stone-500 font-medium">Administradora</p>
+                <p className="text-[11px] text-stone-500 font-medium font-sans">Administradora</p>
               </div>
             </div>
             <button type="button" className="text-stone-400 hover:text-stone-700 p-1">
