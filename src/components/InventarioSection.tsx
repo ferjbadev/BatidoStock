@@ -43,7 +43,9 @@ export const InventarioSection = () => {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="w-full">
-                        <h2 className="text-2xl text-center font-bold text-stone-900">Inventario de Ingredientes</h2>
+                        <h2 className="text-2xl text-center font-bold text-stone-900">
+                            Inventario de Ingredientes
+                        </h2>
                         <p className="text-base text-center text-stone-500">
                             Estate pendiente que no te quedes sin ingredientes por que yo se que tu eres tontita
                         </p>
@@ -87,11 +89,14 @@ export const InventarioSection = () => {
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
                     <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-stone-100 space-y-5 animate-in fade-in zoom-in-95 duration-200">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-lg text-center font-bold text-stone-900">Añadir nuevo ingrediente</h3>
+                        {/* Cabecera del modal con título centrado */}
+                        <div className="relative flex items-center justify-center">
+                            <h3 className="text-lg font-bold text-stone-900 text-center">
+                                Añadir nuevo ingrediente
+                            </h3>
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="p-1 rounded-lg text-black"
+                                className="absolute right-0 p-1 rounded-lg text-black hover:opacity-75 transition-opacity cursor-pointer"
                             >
                                 ✕
                             </button>
@@ -114,7 +119,7 @@ export const InventarioSection = () => {
 
                             <div>
                                 <label className="block text-xs font-medium text-stone-600 mb-1">
-                                    Cantidad disponible 
+                                    Cantidad disponible
                                 </label>
                                 <input
                                     type="number"
@@ -127,8 +132,8 @@ export const InventarioSection = () => {
                                 />
                             </div>
 
-                            <div className="flex items-center justify-end gap-2 pt-3">
-
+                            {/* Botones del formulario centrados */}
+                            <div className="flex items-center justify-center gap-3 pt-3">
                                 <button
                                     type="submit"
                                     className="bg-[#1e6044] hover:bg-[#164833] text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all active:scale-95 cursor-pointer"
