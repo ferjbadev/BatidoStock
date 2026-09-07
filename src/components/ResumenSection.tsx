@@ -11,14 +11,75 @@ interface HistoryItem {
 }
 
 interface WeeklyHistory {
+    id: string;
     weekLabel: string;
     dateRange: string;
     items: HistoryItem[];
 }
 
+// Subcomponente aislado para evitar colisiones de animación en el DOM
+const ActivityCard = ({
+    item,
+    delayIndex,
+}: {
+    item: HistoryItem;
+    delayIndex: number;
+}) => {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+                duration: 0.25,
+                delay: delayIndex * 0.05,
+                ease: 'easeOut',
+            }}
+            className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl border border-stone-100 hover:bg-stone-50 transition-colors gap-3 cursor-pointer"
+        >
+            <div className="flex items-start gap-3">
+                <div
+                    className={`p-2 rounded-xl text-xs shrink-0 ${item.type === 'sale'
+                            ? 'bg-emerald-50 text-emerald-700'
+                            : 'bg-amber-50 text-amber-700'
+                        }`}
+                >
+                    {item.type === 'sale' ? '🛍️' : '📦'}
+                </div>
+
+                <div className="space-y-0.5">
+                    <div className="flex items-center gap-2">
+                        <span className="font-semibold text-stone-900 text-xs">
+                            {item.title}
+                        </span>
+                        <span
+                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${item.type === 'sale'
+                                    ? 'bg-emerald-100/70 text-emerald-800'
+                                    : 'bg-amber-100/70 text-amber-800'
+                                }`}
+                        >
+                            {item.type === 'sale' ? 'Venta' : 'Ingrediente'}
+                        </span>
+                    </div>
+                    <p className="text-xs text-stone-600">{item.detail}</p>
+                </div>
+            </div>
+
+            <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-0 border-stone-100">
+                <span className="text-[11px] text-stone-400">{item.time}</span>
+                {item.amount && (
+                    <span className="font-bold text-emerald-700 text-xs bg-emerald-50 px-2.5 py-1 rounded-lg">
+                        {item.amount}
+                    </span>
+                )}
+            </div>
+        </motion.div>
+    );
+};
+
 export const ResumenSection = () => {
     const [historyData] = useState<WeeklyHistory[]>([
         {
+            id: 'week-sep-1',
             weekLabel: 'Esta Semana',
             dateRange: '01 Sep - 07 Sep',
             items: [
@@ -55,6 +116,7 @@ export const ResumenSection = () => {
             ],
         },
         {
+            id: 'week-aug-4',
             weekLabel: 'Semana Anterior',
             dateRange: '25 Ago - 31 Ago',
             items: [
@@ -85,65 +147,24 @@ export const ResumenSection = () => {
         },
     ]);
 
-    // Variantes para el contenedor principal
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.15,
-            },
-        },
-    };
-
-    // Variantes para cada sección semanal
-    const cardVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.4,
-                ease: 'easeOut',
-                staggerChildren: 0.08,
-            },
-        },
-    };
-
-    // Variantes para cada item del historial
-    const itemVariants = {
-        hidden: { opacity: 0, x: -12 },
-        visible: {
-            opacity: 1,
-            x: 0,
-            transition: { duration: 0.3, ease: 'easeOut' },
-        },
-    };
-
     return (
-        <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans text-stone-800"
-        >
-            {/* Header */}
-            <motion.div variants={cardVariants}>
+        <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans text-stone-800">
+            <div>
                 <h2 className="text-xl font-bold text-stone-900">Historial de Actividad</h2>
                 <p className="text-sm text-stone-500">
                     Para que no se te olvide nada mi amor
                 </p>
-            </motion.div>
+            </div>
 
-            {/* Lista por semanas */}
             <div className="space-y-6">
-                {historyData.map((week, idx) => (
+                {historyData.map((week, weekIdx) => (
                     <motion.div
-                        key={idx}
-                        variants={cardVariants}
+                        key={week.id}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: weekIdx * 0.1 }}
                         className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5 space-y-4"
                     >
-                        {/* Encabezado de la semana */}
                         <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                             <h3 className="font-bold text-stone-900 text-sm">{week.weekLabel}</h3>
                             <span className="text-xs font-medium text-stone-400 bg-stone-50 px-2.5 py-1 rounded-lg border border-stone-100">
@@ -151,60 +172,18 @@ export const ResumenSection = () => {
                             </span>
                         </div>
 
-                        {/* Items de la semana */}
                         <div className="space-y-3">
-                            {week.items.map((item) => (
-                                <motion.div
+                            {week.items.map((item, itemIdx) => (
+                                <ActivityCard
                                     key={item.id}
-                                    variants={itemVariants}
-                                    whileHover={{ scale: 1.008 }}
-                                    whileTap={{ scale: 0.995 }}
-                                    className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl border border-stone-100 hover:bg-stone-50/80 transition-colors gap-3 cursor-pointer"
-                                >
-                                    <div className="flex items-start gap-3">
-                                        {/* Icono diferenciador por tipo */}
-                                        <div
-                                            className={`p-2 rounded-xl text-xs shrink-0 ${item.type === 'sale'
-                                                    ? 'bg-emerald-50 text-emerald-700'
-                                                    : 'bg-amber-50 text-amber-700'
-                                                }`}
-                                        >
-                                            {item.type === 'sale' ? '🛍️' : '📦'}
-                                        </div>
-
-                                        <div className="space-y-0.5">
-                                            <div className="flex items-center gap-2">
-                                                <span className="font-semibold text-stone-900 text-xs">
-                                                    {item.title}
-                                                </span>
-                                                <span
-                                                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${item.type === 'sale'
-                                                            ? 'bg-emerald-100/70 text-emerald-800'
-                                                            : 'bg-amber-100/70 text-amber-800'
-                                                        }`}
-                                                >
-                                                    {item.type === 'sale' ? 'Venta' : 'Ingrediente'}
-                                                </span>
-                                            </div>
-                                            <p className="text-xs text-stone-600">{item.detail}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Derecha: Hora e importe si aplica */}
-                                    <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-0 border-stone-100">
-                                        <span className="text-[11px] text-stone-400">{item.time}</span>
-                                        {item.amount && (
-                                            <span className="font-bold text-emerald-700 text-xs bg-emerald-50 px-2.5 py-1 rounded-lg">
-                                                {item.amount}
-                                            </span>
-                                        )}
-                                    </div>
-                                </motion.div>
+                                    item={item}
+                                    delayIndex={weekIdx * 4 + itemIdx}
+                                />
                             ))}
                         </div>
                     </motion.div>
                 ))}
             </div>
-        </motion.div>
+        </div>
     );
 };
