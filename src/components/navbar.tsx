@@ -74,7 +74,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
                 <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0zM12 18a4 4 0 004-4c0-2-2-4-4-6-2 2-4 4-4 6a4 4 0 004 4z" />
               </svg>
             </div>
-            <span className="font-bold text-base tracking-wide">Fruta & Pulpa</span>
+            <span className="font-bold text-base tracking-wide">ssss</span>
           </div>
         </div>
 
