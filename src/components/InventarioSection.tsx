@@ -43,9 +43,9 @@ export const InventarioSection = () => {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h2 className="text-xl font-bold text-stone-900">Inventario de ingredientes</h2>
-                        <p className="text-xs text-stone-500">
-                            Controla las unidades disponibles de tus ingredientes.
+                        <h2 className="text-2xl text-center font-bold text-stone-900">Inventario de ingredientes</h2>
+                        <p className="text-lg text-center text-stone-500">
+                            Estate pendiente que no te quedes sin ingredientes por que yo se que tu eres tontita
                         </p>
                     </div>
                 </div>
