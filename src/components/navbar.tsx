@@ -14,6 +14,7 @@ interface SidebarMobileProps {
 
 export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Formato con mes completo (ejemplo: "7 de septiembre")
   const currentDate = new Date().toLocaleDateString('es-ES', {
@@ -46,7 +47,7 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
       label: 'Historial',
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z" />
         </svg>
       ),
     },
@@ -188,14 +189,73 @@ export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) =
                 <p className="text-[11px] text-stone-500 font-medium">Administradora</p>
               </div>
             </div>
-            <button type="button" className="text-stone-400 hover:text-stone-700 p-1 cursor-pointer">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+
+            {/* Línea 192: Botón para abrir el modal */}
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="text-stone-400 hover:text-stone-700 p-1.5 hover:bg-stone-200/60 rounded-lg transition-colors cursor-pointer"
+              aria-label="Ver perfil"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </button>
           </div>
         </div>
       </aside>
+
+      {/* Modal de Presentación */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl max-w-sm w-full overflow-hidden shadow-2xl transform transition-all border border-stone-100">
+            {/* Header del Modal */}
+            <div className="relative p-4 bg-[#1e6044] text-white text-center">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-3 right-3 p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+                aria-label="Cerrar modal"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <h3 className="font-bold text-lg">Perfil de la Emprendedora</h3>
+            </div>
+
+            {/* Cuerpo del Modal */}
+            <div className="p-6 text-center space-y-4">
+              <div className="relative w-36 h-36 mx-auto rounded-2xl overflow-hidden shadow-md border-2 border-[#1e6044]/20">
+                <img
+                  src="/imagen1.jpeg"
+                  alt="Karolayn Romero"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div>
+                <h4 className="text-xl font-extrabold text-stone-900">Karolayn Romero</h4>
+                <p className="text-sm font-semibold text-[#1e6044] mt-0.5">Ser Tontita</p>
+              </div>
+
+              <div className="bg-[#fbf9f5] p-4 rounded-2xl border border-stone-200/70 text-left">
+                <p className="text-xs text-stone-600 leading-relaxed font-medium">
+                  🍓 Apasionada emprendedora dedicada a la elaboración de jugos y batidos 100% naturales. Transformo frutas frescas en combinaciones deliciosas que llenan de energía y vitalidad el día a día de Karito Stock.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="w-full py-2.5 bg-[#1e6044] text-white text-sm font-semibold rounded-xl hover:bg-[#184d36] transition-colors shadow-sm"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
