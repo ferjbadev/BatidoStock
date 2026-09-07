@@ -3,113 +3,149 @@ import { useState } from 'react';
 interface Ingredient {
     id: string;
     name: string;
-    category: string;
-    stock: string;
-    consumption: number;
-    status: 'Normal' | 'Bajo stock' | 'Agotándose' | 'Agotado';
+    stock: number;
 }
 
 export const InventarioSection = () => {
-    const [filter, setFilter] = useState<'Todos' | 'Bajo stock' | 'Agotados'>('Todos');
+    const [ingredients, setIngredients] = useState<Ingredient[]>([
+        { id: '1', name: 'Mango', stock: 18 },
+        { id: '2', name: 'Fresa', stock: 4 },
+        { id: '3', name: 'Piña', stock: 12 },
+        { id: '4', name: 'Leche de almendras', stock: 9 },
+        { id: '5', name: 'Espinaca', stock: 2 },
+        { id: '6', name: 'Açaí', stock: 0 },
+    ]);
 
-    const ingredients: Ingredient[] = [
-        { id: '1', name: 'Mango', category: 'Frutas', stock: '18 kg', consumption: 82, status: 'Normal' },
-        { id: '2', name: 'Fresa', category: 'Frutas', stock: '4 kg', consumption: 91, status: 'Bajo stock' },
-        { id: '3', name: 'Piña', category: 'Frutas', stock: '12 kg', consumption: 66, status: 'Normal' },
-        { id: '4', name: 'Leche de almendras', category: 'Lácteos', stock: '9 L', consumption: 58, status: 'Normal' },
-        { id: '5', name: 'Espinaca', category: 'Verduras', stock: '2 kg', consumption: 96, status: 'Agotándose' },
-        { id: '6', name: 'Açaí', category: 'Superfoods', stock: '0 kg', consumption: 100, status: 'Agotado' },
-    ];
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [newIngredientName, setNewIngredientName] = useState('');
+    const [newIngredientStock, setNewIngredientStock] = useState('');
 
-    const filteredIngredients = ingredients.filter((item) => {
-        if (filter === 'Bajo stock') return item.status === 'Bajo stock' || item.status === 'Agotándose';
-        if (filter === 'Agotados') return item.status === 'Agotado';
-        return true;
-    });
+    const handleAddIngredient = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newIngredientName.trim() || newIngredientStock === '') return;
 
-    const getStatusBadge = (status: Ingredient['status']) => {
-        switch (status) {
-            case 'Normal':
-                return <span className="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-800">Normal</span>;
-            case 'Bajo stock':
-                return <span className="px-3 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-800">Bajo stock</span>;
-            case 'Agotándose':
-                return <span className="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-800">Agotándose</span>;
-            case 'Agotado':
-                return <span className="px-3 py-1 text-xs font-semibold rounded-full bg-rose-100 text-rose-800">Agotado</span>;
-        }
+        const newIngredient: Ingredient = {
+            id: Date.now().toString(),
+            name: newIngredientName.trim(),
+            stock: Number(newIngredientStock),
+        };
+
+        setIngredients((prev) => [...prev, newIngredient]);
+        setNewIngredientName('');
+        setNewIngredientStock('');
+        setIsModalOpen(false);
     };
 
     return (
         <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans text-stone-800">
             {/* Contenedor principal */}
             <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5 space-y-6">
-                {/* Header y Filtros */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                {/* Header */}
+                <div className="flex items-center justify-between">
                     <div>
                         <h2 className="text-xl font-bold text-stone-900">Inventario de ingredientes</h2>
-                        <p className="text-xs text-stone-500">Controla existencias y evita quedarte sin lo esencial.</p>
-                    </div>
-
-                    <div className="flex items-center gap-2 self-start sm:self-auto">
-                        {(['Todos', 'Bajo stock', 'Agotados'] as const).map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setFilter(tab)}
-                                className={`px-4 py-1.5 text-xs font-medium rounded-xl transition-all ${filter === tab
-                                        ? 'bg-[#1e6044] text-white shadow-xs'
-                                        : 'bg-stone-50 border border-stone-200 text-stone-600 hover:bg-stone-100'
-                                    }`}
-                            >
-                                {tab}
-                            </button>
-                        ))}
+                        <p className="text-xs text-stone-500">
+                            Controla las unidades disponibles de tus ingredientes.
+                        </p>
                     </div>
                 </div>
 
-                {/* Tabla Responsiva */}
+                {/* Tabla */}
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse min-w-[600px]">
+                    <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="border-b border-stone-100 text-[11px] font-bold text-stone-400 uppercase tracking-wider">
                                 <th className="pb-3">Ingrediente</th>
-                                <th className="pb-3">Categoría</th>
-                                <th className="pb-3">Existencias</th>
-                                <th className="pb-3">Consumo</th>
-                                <th className="pb-3">Estado</th>
-                                <th className="pb-3 text-right">Acción</th>
+                                <th className="pb-3 text-right">Cantidad disponible</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-stone-100 text-sm">
-                            {filteredIngredients.map((item) => (
+                            {ingredients.map((item) => (
                                 <tr key={item.id} className="hover:bg-stone-50/60 transition-colors">
                                     <td className="py-4 font-bold text-stone-900">{item.name}</td>
-                                    <td className="py-4 text-stone-500 text-xs">{item.category}</td>
-                                    <td className="py-4 font-medium text-stone-800">{item.stock}</td>
-                                    <td className="py-4 w-40">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-full bg-stone-100 h-2 rounded-full overflow-hidden">
-                                                <div
-                                                    style={{ width: `${item.consumption}%` }}
-                                                    className={`h-full rounded-full ${item.consumption > 85 ? 'bg-rose-500' : 'bg-[#1e6044]'
-                                                        }`}
-                                                />
-                                            </div>
-                                            <span className="text-xs text-stone-400 font-medium w-8">{item.consumption}%</span>
-                                        </div>
-                                    </td>
-                                    <td className="py-4">{getStatusBadge(item.status)}</td>
-                                    <td className="py-4 text-right">
-                                        <button className="text-xs font-bold text-[#1e6044] hover:underline">
-                                            Reponer
-                                        </button>
+                                    <td className="py-4 font-semibold text-stone-800 text-right">
+                                        {item.stock} {item.stock === 1 ? 'unidad' : 'unidades'}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
+
+                {/* Botón inferior para abrir el modal */}
+                <div className="pt-2 flex justify-end border-t border-stone-100">
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-[#1e6044] hover:bg-[#164833] text-white px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-all active:scale-95 cursor-pointer"
+                    >
+                        <span>+</span> Añadir ingrediente
+                    </button>
+                </div>
             </div>
+
+            {/* Modal para agregar ingrediente */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
+                    <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-stone-100 space-y-5 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-lg font-bold text-stone-900">Añadir nuevo ingrediente</h3>
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="text-stone-400 hover:text-stone-700 p-1 rounded-lg transition-colors cursor-pointer"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleAddIngredient} className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-medium text-stone-600 mb-1">
+                                    Nombre del ingrediente
+                                </label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="Ej. Mango, Leche, Fresa"
+                                    value={newIngredientName}
+                                    onChange={(e) => setNewIngredientName(e.target.value)}
+                                    className="w-full px-3.5 py-2 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e6044] text-stone-800 placeholder-stone-400"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-medium text-stone-600 mb-1">
+                                    Cantidad disponible (unidades)
+                                </label>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    required
+                                    placeholder="Ej. 10"
+                                    value={newIngredientStock}
+                                    onChange={(e) => setNewIngredientStock(e.target.value)}
+                                    className="w-full px-3.5 py-2 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-[#1e6044] text-stone-800 placeholder-stone-400"
+                                />
+                            </div>
+
+                            <div className="flex items-center justify-end gap-2 pt-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="px-4 py-2 text-xs font-semibold text-stone-600 hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-[#1e6044] hover:bg-[#164833] text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all active:scale-95 cursor-pointer"
+                                >
+                                    Guardar ingrediente
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
