@@ -7,9 +7,13 @@ interface MenuItem {
   badge?: number;
 }
 
-export const SidebarMobile = () => {
-  const [activeTab, setActiveTab] = useState<string>('resumen');
-  const [isOpen, setIsOpen] = useState<boolean>(false); // Inicia cerrado para ver la barra superior
+interface SidebarMobileProps {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}
+
+export const SidebarMobile = ({ activeTab, setActiveTab }: SidebarMobileProps) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const menuItems: MenuItem[] = [
     {
@@ -40,23 +44,15 @@ export const SidebarMobile = () => {
         </svg>
       ),
     },
-    {
-      id: 'productos',
-      label: 'Productos',
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-        </svg>
-      ),
-    },
   ];
 
   return (
     <>
-      {/* 1. BARRA SUPERIOR FIJA (HEADER) */}
+      {/* Top Bar Fija */}
       <header className="sticky top-0 z-30 w-full bg-[#1e6044] text-white px-4 py-3 flex items-center justify-between shadow-md">
         <div className="flex items-center gap-3">
           <button
+            type="button"
             onClick={() => setIsOpen(true)}
             className="p-2 text-white hover:bg-white/10 rounded-xl transition-colors active:scale-95"
             aria-label="Abrir menú"
@@ -76,13 +72,12 @@ export const SidebarMobile = () => {
           </div>
         </div>
 
-        {/* Indicador/Avatar rápido en el header */}
         <div className="w-8 h-8 rounded-full bg-white/20 text-white font-semibold text-xs flex items-center justify-center border border-white/30">
           MR
         </div>
       </header>
 
-      {/* 2. OVERLAY / FONDO OSCURO (Se activa cuando isOpen es true) */}
+      {/* Overlay oscuro detras del menú */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
@@ -90,13 +85,12 @@ export const SidebarMobile = () => {
         />
       )}
 
-      {/* 3. SIDEBAR DESLIZABLE */}
+      {/* Sidebar Deslizable */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-full max-w-[300px] bg-[#fbf9f5] flex flex-col justify-between p-5 border-r border-stone-200/60 font-sans text-stone-800 shadow-2xl transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {/* Header dentro del menú */}
         <div>
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
@@ -112,6 +106,7 @@ export const SidebarMobile = () => {
             </div>
 
             <button
+              type="button"
               onClick={() => setIsOpen(false)}
               className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-stone-200/50 rounded-lg transition-colors"
             >
@@ -121,16 +116,16 @@ export const SidebarMobile = () => {
             </button>
           </div>
 
-          {/* Opciones del menú */}
           <nav className="space-y-1.5">
             {menuItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
                 <button
                   key={item.id}
+                  type="button"
                   onClick={() => {
                     setActiveTab(item.id);
-                    setIsOpen(false); // Cierra el menú al hacer click en una opción
+                    setIsOpen(false);
                   }}
                   className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 font-medium text-sm ${
                     isActive
@@ -188,7 +183,7 @@ export const SidebarMobile = () => {
                 <p className="text-[11px] text-stone-500 font-medium">Administradora</p>
               </div>
             </div>
-            <button className="text-stone-400 hover:text-stone-700 p-1">
+            <button type="button" className="text-stone-400 hover:text-stone-700 p-1">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
