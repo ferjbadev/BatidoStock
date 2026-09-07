@@ -88,10 +88,10 @@ export const InventarioSection = () => {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
                     <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-stone-100 space-y-5 animate-in fade-in zoom-in-95 duration-200">
                         <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-bold text-stone-900">Añadir nuevo ingrediente</h3>
+                            <h3 className="text-lg text-center font-bold text-stone-900">Añadir nuevo ingrediente</h3>
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="text-stone-400 hover:text-stone-700 p-1 rounded-lg transition-colors cursor-pointer"
+                                className="p-1 rounded-lg text-black"
                             >
                                 ✕
                             </button>
@@ -114,7 +114,7 @@ export const InventarioSection = () => {
 
                             <div>
                                 <label className="block text-xs font-medium text-stone-600 mb-1">
-                                    Cantidad disponible (unidades)
+                                    Cantidad disponible 
                                 </label>
                                 <input
                                     type="number"
@@ -128,18 +128,19 @@ export const InventarioSection = () => {
                             </div>
 
                             <div className="flex items-center justify-end gap-2 pt-3">
-                                <button
-                                    type="button"
-                                    onClick={() => setIsModalOpen(false)}
-                                    className="px-4 py-2 text-xs font-semibold text-stone-600 hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
-                                >
-                                    Cancelar
-                                </button>
+
                                 <button
                                     type="submit"
                                     className="bg-[#1e6044] hover:bg-[#164833] text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all active:scale-95 cursor-pointer"
                                 >
                                     Guardar ingrediente
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="px-4 bg-[#e62107] py-2 text-xs font-semibold text-white hover:bg-[#c41a00] rounded-xl transition-colors cursor-pointer"
+                                >
+                                    Cancelar
                                 </button>
                             </div>
                         </form>
