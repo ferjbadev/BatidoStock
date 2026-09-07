@@ -51,21 +51,14 @@ export const VentasSection = () => {
 
     return (
         <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans text-stone-800">
+            {/* Contenedor Principal */}
             <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5 space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                        <h2 className="text-xl font-bold text-stone-900">Historial de Ventas</h2>
-                        <p className="text-xs text-stone-500">Registro detallado de transacciones recientes.</p>
-                    </div>
-                    {/* w-fit para que no ocupe todo el ancho en mobile */}
-                    <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="w-fit bg-[#1e6044] hover:bg-[#164833] text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-xs transition-all active:scale-95 cursor-pointer"
-                    >
-                        + Registrar Venta
-                    </button>
+                <div>
+                    <h2 className="text-xl font-bold text-stone-900">Historial de Ventas</h2>
+                    <p className="text-xs text-stone-500">Registro detallado de transacciones recientes.</p>
                 </div>
 
+                {/* Lista de ventas */}
                 <div className="space-y-3">
                     {sales.map((sale) => (
                         <div
@@ -89,13 +82,23 @@ export const VentasSection = () => {
                         </div>
                     ))}
                 </div>
+
+                {/* Botón en la parte de abajo, centrado en el contenedor */}
+                <div className="pt-2 flex justify-center border-t border-stone-100">
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-[#1e6044] hover:bg-[#164833] text-white px-5 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-all active:scale-95 cursor-pointer"
+                    >
+                        <span>+</span> Registrar Venta
+                    </button>
+                </div>
             </div>
 
-            {/* Modal para registrar venta */}
+            {/* Modal solo con Nombre, Cantidad y Precio */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
                     <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-stone-100 space-y-5 animate-in fade-in zoom-in-95 duration-200">
-                        {/* Cabecera del modal con título centrado */}
+                        {/* Título centrado en el contenedor */}
                         <div className="relative flex items-center justify-center">
                             <h3 className="text-lg font-bold text-stone-900 text-center">
                                 Registrar nueva venta
@@ -141,7 +144,7 @@ export const VentasSection = () => {
 
                             <div>
                                 <label className="block text-xs font-medium text-stone-600 mb-1">
-                                    Costo unitario ($)
+                                    Costo ($)
                                 </label>
                                 <input
                                     type="number"
@@ -155,7 +158,7 @@ export const VentasSection = () => {
                                 />
                             </div>
 
-                            {/* Acciones del formulario */}
+                            {/* Botones centrados: Agregar primero (verde), Cancelar después (rojo) */}
                             <div className="flex items-center justify-center gap-3 pt-3">
                                 <button
                                     type="submit"
