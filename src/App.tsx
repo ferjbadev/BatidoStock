@@ -7,7 +7,7 @@ import { VentasSection } from './components/VentasSection'
 
 function App() {
   // Estado para controlar qué sección se ve ('resumen', 'inventario' o 'ventas')
-  const [activeTab, setActiveTab] = useState('resumen')
+  const [activeTab, setActiveTab] = useState('ventas')
 
   return (
     <>
