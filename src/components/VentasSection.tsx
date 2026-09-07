@@ -52,8 +52,8 @@ export const VentasSection = () => {
             {/* Contenedor Principal */}
             <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5 space-y-6">
                 <div>
-                    <h2 className="text-xl font-bold text-stone-900">Historial de Ventas</h2>
-                    <p className="text-xs text-stone-500">Registro detallado de transacciones recientes.</p>
+                    <h2 className="text-xl font-bold text-stone-900">Ventas</h2>
+                    <p className="text-base text-stone-500">Registro detallado de lo que vendes pomposa</p>
                 </div>
 
                 {/* Lista de ventas */}
